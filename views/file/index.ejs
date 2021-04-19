@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .flex-wrap{
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex-around-center{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .img-item{
+            margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .relative{
+            position: relative;
+        }
+
+        .absolute{
+            position: absolute;
+        }
+
+        .download{
+            right: 2px;
+            bottom: 2px;
+            color: hotpink;
+            text-underline: none;
+        }
+    </style>
+</head>
+<body>
+    <!--图片/视频上传-->
+    <section>
+        <h4>图片/视频上传</h4>
+        <div class="img-container">
+            <form action="/file/img/upload"
+                  method="post"
+                  enctype="multipart/form-data">
+                <input type="file" name="img" multiple="multiple">
+                <input type="submit"/>
+            </form>
+        </div>
+    </section>
+
+    <!--文件列表-->
+    <section>
+        <h4>文件列表</h4>
+        <div class="flex-wrap flex-around-center">
+            <% fileList.forEach(item => { %>
+            <div class="img-item relative">
+                <% if (item.extname === '.mp4') { %>
+                        <video src="<%= item.url %>" controls="controls" width="100%" height="100%"></video>
+                <% } else { %>
+                        <img src="<%= item.url %>" alt="" width="100%" height="100%">
+                <% } %>
+                    <a class="absolute download" href="<%= item.url %>" download="<%= item.url %>">download</a>
+            </div>
+            <% }) %>
+        </div>
+    </section>
+</body>
+</html>
